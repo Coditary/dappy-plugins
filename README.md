@@ -2,7 +2,9 @@
 
 Optional adapter and RSP target manifests for [Dappy](https://github.com/Coditary/Dappy).
 
-Each top-level directory is a standalone plugin package installable via [rqp-plugin-dappy](https://github.com/Coditary/rqp-plugin-dappy):
+Plugin packages live under a letter directory (first character of the plugin id), e.g.
+`p/python-pudb`, `r/rust`, `g/gdbserver`. Each package is installable via
+[rqp-plugin-dappy](https://github.com/Coditary/rqp-plugin-dappy):
 
 ```bash
 rqp install dappy python
@@ -28,7 +30,7 @@ built-in **`sys:`** bridge (distro-agnostic — ReqPack picks apt/dnf/pacman/hom
 the host) or language managers (`uv:`, `npm:`, …), not a specific Linux distro PM:
 
 ```bash
-cd dappy-plugins/rust
+cd dappy-plugins/r/rust
 rqp install .
 # ensures sys:lldb-dap via the host package manager bridge
 ```
