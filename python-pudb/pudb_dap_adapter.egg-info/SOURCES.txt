@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+pudb_dap_adapter/__init__.py
+pudb_dap_adapter/__main__.py
+pudb_dap_adapter/server.py
+pudb_dap_adapter.egg-info/PKG-INFO
+pudb_dap_adapter.egg-info/SOURCES.txt
+pudb_dap_adapter.egg-info/dependency_links.txt
+pudb_dap_adapter.egg-info/entry_points.txt
+pudb_dap_adapter.egg-info/requires.txt
+pudb_dap_adapter.egg-info/top_level.txt

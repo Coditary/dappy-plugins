@@ -1,0 +1,31 @@
+id: ibm-zos-debugger
+name: IBM z/OS Debugger
+version: 0.1.0
+description: COBOL, PL/I, Assembler, C debugger for IBM mainframes
+languages: []
+launchTypes:
+- ibm-zos-debugger
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-mainframe-launch
+  - ibm-zos-debugger
+initialize:
+  adapterID: ibm-zos-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,62 @@
+id: native-gdb
+name: GNU GDB
+version: 0.1.0
+description: Classic GDB debugger for C, C++, Rust, Zig via MI3 DAP bridge
+languages:
+  - c
+  - cpp
+  - rust
+  - zig
+launchTypes:
+  - cppdbg
+  - gdb
+  - native-gdb
+fileExtensions:
+  - c
+  - cc
+  - cpp
+  - cxx
+  - h
+  - hpp
+  - rs
+  - zig
+  - o
+  - out
+adapter:
+  transport: stdio
+  command: python3
+  args:
+    - -m
+    - dappy_gdb_dap
+
+initialize:
+  adapterID: native-gdb
+  defaults:
+    supportsConfigurationDoneRequest: true
+
+launch:
+  request: launch
+  defaults:
+    type: native-gdb
+    request: launch
+    stopOnEntry: true
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    gdb: "${env:GDB}"
+
+init:
+  steps:
+    - request: setBreakpoints
+      arguments:
+        source:
+          path: "${program.abs}"
+        breakpoints:
+          - line: 1
+      recordEntry:
+        path: "${program.abs}"
+        line: 1
+    - request: launch
+      useLaunchArguments: true
+    - request: configurationDone
+      arguments: {}

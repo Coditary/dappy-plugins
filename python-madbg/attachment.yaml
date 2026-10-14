@@ -1,0 +1,23 @@
+version: 1
+
+notes: |
+  madbg is a remote/preemptive Python debugger (IPython/pdb over TCP).
+  Launch runs `madbg run`; attach injects into a PID or connects to port 3513.
+
+modes:
+  launch:
+    cli: madbg run --use-set-trace script.py
+    dappy: dap-cli debug repl --adapter python-madbg script.py
+  attach_pid:
+    cli: madbg attach <pid>
+    dappy: MADBG_PID=<pid> dap-cli debug repl --adapter python-madbg-attach -- /proc/<pid>/exe
+    env: MADBG_PID
+  connect:
+    cli: madbg connect [host] [port]
+    dappy: dap-cli debug repl --adapter madbg-connect -- script.py
+
+throwSites:
+  - id: raise
+    label: Raised exception
+    linePatterns:
+      - '^\s*raise\b'

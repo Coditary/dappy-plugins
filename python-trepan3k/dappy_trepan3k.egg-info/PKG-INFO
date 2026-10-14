@@ -1,0 +1,109 @@
+Metadata-Version: 2.4
+Name: dappy-trepan3k
+Version: 0.1.0
+Summary: DAP bridge for trepan3k (Python 3 gdb-like debugger)
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: trepan3k>=1.2.0
+
+# python-trepan3k (Dappy plugin)
+
+Dappy manifest and DAP bridge for [trepan3k](https://github.com/Trepan-Debuggers/python3-trepan), a gdb-like debugger for Python 3.
+
+## Architecture choice
+
+trepan3k does **not** speak DAP or gdb-remote/RSP. It exposes a gdb-like CLI over a **TCP control channel** (comcodes + length-prefixed messages) when run in server mode.
+
+This plugin uses a **hybrid remote TCP bridge**:
+
+| Layer | Protocol | Role |
+|-------|----------|------|
+| Dappy ↔ adapter | DAP over stdio | Editor/CLI/MCP integration |
+| adapter ↔ trepan3k | trepan TCP (comcodes) | Debugger command channel |
+| trepan3k ↔ program | in-process trace | Python 3 debuggee |
+
+We intentionally use **`plugin.yaml` + stdio DAP adapter**, not `target.yaml`. RSP targets in Dappy are for gdb-remote backends; trepan's wire protocol is unrelated.
+
+### Modes
+
+- **Launch (default):** the bridge spawns `dappy_trepan3k.server_launcher`, which starts trepan3k with `ServerInterface(IO=TCP)`, then connects as a TCP client.
+- **Attach:** connect to an existing trepan TCP server (`trepan3k --server` / `debug_for_remote_access`) via DAP `attach` with `host` + `port`.
+
+## Install
+
+```bash
+cd dappy-plugins/python-trepan3k
+pip install -e .
+
+# or
+pip install -r requirements.txt
+pip install -e .
+```
+
+Requires Python 3.8+ and `trepan3k` on `PATH` (installed by pip as `trepan3k` / `trepan3kc`).
+
+## Dappy usage
+
+```bash
+export DAP_PLUGINS_DIR=/path/to/dappy-plugins
+
+dap-cli plugin show python-trepan3k
+dap-cli debug repl --adapter python-trepan3k ./script.py
+dap-cli debug mcp --adapter python-trepan3k --program ./script.py
+```
+
+Registry install:
+
+```bash
+rqp install dappy python-trepan3k
+pip install -r ~/.config/dap/plugins/python-trepan3k/requirements.txt
+pip install ~/.config/dap/plugins/python-trepan3k
+```
+
+## Remote debugging (manual server)
+
+Terminal A — start program with trepan TCP server:
+
+```bash
+python3 -m dappy_trepan3k.server_launcher 1955 ./script.py
+# note printed TREPAN_SERVER_PORT=
+```
+
+Terminal B — attach via trepan client (native):
+
+```bash
+trepan3kc --port 1955
+```
+
+Or use Dappy attach launch args (`host`, `port`) through a client that sends DAP `attach`.
+
+## gdb-like features
+
+Available through trepan itself (macros, bytecode inspection, event filters). The DAP bridge maps a **core subset**:
+
+- breakpoints (`setBreakpoints` → `break file:line`)
+- continue / next / stepIn / stepOut
+- stackTrace (`backtrace`)
+- locals/globals (`info locals`, `info globals`)
+- evaluate (`eval`)
+
+Advanced trepan commands are reachable indirectly via `evaluate` if trepan accepts them as `eval`.
+
+## Limitations
+
+- No native DAP in trepan3k; text parsing of trepan output may be brittle across trepan versions.
+- Single-thread DAP model (`MainThread` only).
+- No conditional/function/data breakpoints via DAP yet.
+- `restart`, reverse debugging, and rich variable expansion are not implemented.
+- Requires `dappy-trepan3k-dap` on `PATH` (pip install).
+- trepan3k upstream `--server` CLI defaults to FIFO in some versions; this plugin forces **TCP** via `ServerInterface` in `server_launcher.py`.
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `plugin.yaml` | Dappy manifest (`launchTypes: python-trepan3k`, `fileExtensions: py`) |
+| `dappy_trepan3k/dap.py` | DAP ↔ trepan TCP bridge (stdio) |
+| `dappy_trepan3k/server_launcher.py` | Spawn trepan3k TCP server for launch mode |
+| `dappy_trepan3k/trepan_io.py` | trepan comcodes TCP client |
+| `requirements.txt` | Python deps (`trepan3k`) |

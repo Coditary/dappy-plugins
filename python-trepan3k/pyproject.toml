@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dappy-trepan3k"
+version = "0.1.0"
+description = "DAP bridge for trepan3k (Python 3 gdb-like debugger)"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "trepan3k>=1.2.0",
+]
+
+[project.scripts]
+dappy-trepan3k-dap = "dappy_trepan3k.dap:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dappy_trepan3k*"]

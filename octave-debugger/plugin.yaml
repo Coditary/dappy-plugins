@@ -1,0 +1,31 @@
+id: octave-debugger
+name: GNU Octave Debugger
+version: 0.1.0
+description: dbstop/dbstep CLI debugger for Octave
+languages: []
+launchTypes:
+- octave-debugger
+fileExtensions:
+- m
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-math-launch
+  - octave-debugger
+initialize:
+  adapterID: octave-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

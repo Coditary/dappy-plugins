@@ -1,0 +1,15 @@
+id: fusionreactor
+name: FusionReactor
+version: 0.1.0
+description: Java/ColdFusion application monitor and debugger attach endpoint
+targetTypes:
+  - fusionreactor
+  - java
+
+connect:
+  host: 127.0.0.1
+  port: 8088
+
+attach:
+  program: "${program.abs}"
+  decompiler: auto

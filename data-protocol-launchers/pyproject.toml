@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dappy-data-protocol-launch"
+version = "0.1.0"
+description = "Database query, RPC, and protocol inspector launchers for Dappy"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[project.scripts]
+dappy-data-protocol-launch = "dappy_data_protocol_launch.launcher:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dappy_data_protocol_launch*"]

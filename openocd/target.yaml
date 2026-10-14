@@ -1,0 +1,23 @@
+id: openocd
+name: OpenOCD
+version: 0.1.0
+description: Open On-Chip Debugger JTAG/SWD
+targetTypes:
+  - openocd
+  - embedded
+  - gdb-remote
+
+spawn:
+  command: dappy-embedded-launch
+  args:
+    - openocd
+
+connect:
+  host: 127.0.0.1
+  port: 3333
+
+attach:
+  program: "${program.abs}"
+  imageBase: "0x08000000"
+  decompiler: auto
+

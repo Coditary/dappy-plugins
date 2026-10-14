@@ -1,0 +1,41 @@
+id: python-madbg
+name: Python (madbg)
+version: 0.1.0
+description: Remote/preemptive Python debugger via madbg (launch and attach)
+attachment: attachment.yaml
+languages:
+  - python
+launchTypes:
+  - python-madbg
+fileExtensions:
+  - py
+adapter:
+  transport: stdio
+  command: python3
+  args:
+    - -m
+    - madbg_dap
+initialize:
+  adapterID: python-madbg
+launch:
+  request: launch
+  defaults:
+    type: python-madbg
+    request: launch
+    host: "127.0.0.1"
+    port: 3513
+    useSetTrace: true
+    noPostMortem: false
+    runAsModule: false
+    connectOnly: false
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    python: "${env:PYTHON}"
+init:
+  steps:
+    - request: launch
+      useLaunchArguments: true
+      waitForEvent: initialized
+    - request: configurationDone
+      arguments: {}

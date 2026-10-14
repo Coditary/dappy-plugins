@@ -1,0 +1,18 @@
+version: 1
+
+throwSites:
+  - id: raise
+    label: Raised exception
+    linePatterns:
+      - '^\s*raise\b'
+  - id: pudb-set-trace
+    label: PuDB breakpoint (pu.db)
+    linePatterns:
+      - '^\s*import\s+pudb\b'
+      - '^\s*pudb\.set_trace\s*\('
+      - '^\s*pu\.db\b'
+  - id: pudb-remote
+    label: PuDB remote breakpoint
+    linePatterns:
+      - 'pudb\.remote\.set_trace\s*\('
+      - 'from\s+pudb\.remote\s+import\s+set_trace'

@@ -1,0 +1,31 @@
+id: shdb
+name: shdb
+version: 0.1.0
+description: Source-level Bash debugger with breakpoints
+languages: []
+launchTypes:
+- shdb
+fileExtensions:
+- sh
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-extra-launch
+  - shdb
+initialize:
+  adapterID: shdb
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

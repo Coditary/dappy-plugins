@@ -1,0 +1,13 @@
+version: 1
+
+throwSites:
+  - id: raise
+    label: Raised exception
+    linePatterns:
+      - '^\s*raise\b'
+  - id: ipdab-set-trace
+    label: ipdab breakpoint
+    linePatterns:
+      - '^\s*ipdab\.set_trace\s*\('
+      - '^\s*import ipdab\b'
+      - '^\s*from ipdab import set_trace\b'

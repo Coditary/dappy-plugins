@@ -1,0 +1,31 @@
+id: puredata-maxmsp
+name: Pure Data / Max/MSP
+version: 0.1.0
+description: Visual audio patching with error streams
+languages: []
+launchTypes:
+- puredata-maxmsp
+fileExtensions:
+- pd
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-audio-launch
+  - puredata-maxmsp
+initialize:
+  adapterID: puredata-maxmsp
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

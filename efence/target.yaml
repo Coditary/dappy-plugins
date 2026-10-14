@@ -1,0 +1,22 @@
+id: efence
+name: Electric Fence
+version: 0.1.0
+description: Heap buffer overflow detector (LD_PRELOAD)
+targetTypes:
+  - efence
+  - analysis
+  - sanitizer
+
+spawn:
+  command: dappy-sanitizer-run
+  args:
+    - efence
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+

@@ -1,0 +1,18 @@
+[project]
+name = "dappy-pdb-bridge"
+version = "0.1.0"
+description = "Stdio DAP bridge for Python's stdlib pdb debugger (Dappy plugin)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+
+[project.scripts]
+dappy-pdb-adapter = "dappy_pdb_bridge:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dappy_pdb_bridge*"]

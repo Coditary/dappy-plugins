@@ -1,0 +1,2 @@
+[console_scripts]
+dappy-pdb-adapter = dappy_pdb_bridge:main

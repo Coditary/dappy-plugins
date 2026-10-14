@@ -1,0 +1,31 @@
+id: ssms-tsql
+name: SSMS T-SQL Debugger
+version: 0.1.0
+description: Visual T-SQL debugger in SQL Server Management Studio
+languages: []
+launchTypes:
+- ssms-tsql
+fileExtensions:
+- sql
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-database-launch
+  - ssms-tsql
+initialize:
+  adapterID: ssms-tsql
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,32 @@
+# Build / toolchain outputs
+bin/
+build/
+target/
+dist/
+**/bin/
+**/build/
+**/target/
+
+# Node / Python
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Local temp deps (e.g. ipdb experiments)
+.tmp-*/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Env
+.env
+.env.*
+!.env.example

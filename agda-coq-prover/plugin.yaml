@@ -1,0 +1,32 @@
+id: agda-coq-prover
+name: Agda / Coq
+version: 0.1.0
+description: Interactive proof assistants as debuggers
+languages: []
+launchTypes:
+- agda-coq-prover
+fileExtensions:
+- agda
+- v
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-niche-language-launch
+  - agda-coq-prover
+initialize:
+  adapterID: agda-coq-prover
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

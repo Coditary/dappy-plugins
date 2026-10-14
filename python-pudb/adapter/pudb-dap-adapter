@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Self-locating launcher for local dev without pip install.
+set -euo pipefail
+PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+export PYTHONPATH="${PLUGIN_ROOT}${PYTHONPATH:+:${PYTHONPATH}}"
+exec python3 -m pudb_dap_adapter "$@"

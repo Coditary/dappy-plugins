@@ -1,0 +1,40 @@
+id: native-lldb
+name: LLVM LLDB (lldb-dap)
+version: 0.1.0
+description: Native debugger for C, C++, Rust, Zig via LLVM lldb-dap
+languages:
+  - c
+  - cpp
+  - rust
+  - zig
+launchTypes:
+  - lldb-dap
+  - cppdbg-lldb
+fileExtensions:
+  - c
+  - cc
+  - cpp
+  - cxx
+  - h
+  - hpp
+  - rs
+  - zig
+  - o
+  - out
+adapter:
+  transport: stdio
+  command: lldb-dap
+  args: []
+
+initialize:
+  adapterID: lldb-dap
+
+launch:
+  request: launch
+  defaults:
+    type: lldb-dap
+    request: launch
+    stopOnEntry: false
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"

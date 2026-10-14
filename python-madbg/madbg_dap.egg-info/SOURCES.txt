@@ -1,0 +1,13 @@
+README.md
+pyproject.toml
+madbg_dap/__init__.py
+madbg_dap/__main__.py
+madbg_dap/bridge.py
+madbg_dap/protocol.py
+madbg_dap/session.py
+madbg_dap.egg-info/PKG-INFO
+madbg_dap.egg-info/SOURCES.txt
+madbg_dap.egg-info/dependency_links.txt
+madbg_dap.egg-info/entry_points.txt
+madbg_dap.egg-info/requires.txt
+madbg_dap.egg-info/top_level.txt

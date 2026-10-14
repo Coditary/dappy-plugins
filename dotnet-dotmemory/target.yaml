@@ -1,0 +1,23 @@
+id: dotnet-dotmemory
+name: JetBrains dotMemory
+version: 0.1.0
+description: .NET memory profiler and leak analysis
+targetTypes:
+  - dotmemory
+  - profiling
+  - analysis
+
+spawn:
+  command: dotmemory
+  args:
+    - get-snapshot
+    - "${program.abs}"
+    - snapshot.dmw
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+  snapshot: snapshot.dmw

@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pudb-dap-adapter"
+version = "0.1.0"
+description = "DAP stdio bridge for the PuDB full-screen Python debugger (Dappy plugin)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "pudb>=2024.1",
+]
+
+[project.scripts]
+pudb-dap-adapter = "pudb_dap_adapter.server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pudb_dap_adapter*"]

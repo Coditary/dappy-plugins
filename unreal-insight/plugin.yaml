@@ -1,0 +1,31 @@
+id: unreal-insight
+name: Unreal Insight
+version: 0.1.0
+description: Unreal Engine Insights and Visual Logger
+languages: []
+launchTypes:
+- unreal-insight
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-graphics-launch
+  - unreal-insight
+initialize:
+  adapterID: unreal-insight
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

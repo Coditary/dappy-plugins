@@ -1,0 +1,25 @@
+id: perf-record
+name: perf record
+version: 0.1.0
+description: Linux perf profiling — record samples for later analysis (not breakpoint debugging)
+targetTypes:
+  - perf
+  - profiling
+  - analysis
+
+spawn:
+  command: perf
+  args:
+    - record
+    - -g
+    - -o
+    - perf.data
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+  perfData: perf.data

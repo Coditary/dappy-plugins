@@ -1,0 +1,32 @@
+id: xminidump
+name: Xminidump / Dumpert
+version: 0.1.0
+description: Windows minidump analysis tools
+languages: []
+launchTypes:
+- xminidump
+fileExtensions:
+- dmp
+- mdmp
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-historic-launch
+  - xminidump
+initialize:
+  adapterID: xminidump
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,6 @@
+version: 1
+
+notes:
+  - id: dwarf
+    label: DWARF symbols
+    detail: Build with -g (C/C++/Zig) or cargo build (Rust) for source-level debugging.

@@ -1,0 +1,32 @@
+id: erratum-debugger
+name: Erratum / Scheme debugger
+version: 0.1.0
+description: Macro-expansion debugger for Lisp/Scheme
+languages: []
+launchTypes:
+- erratum-debugger
+fileExtensions:
+- scm
+- ss
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-niche-language-launch
+  - erratum-debugger
+initialize:
+  adapterID: erratum-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

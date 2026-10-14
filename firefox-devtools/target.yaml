@@ -1,0 +1,21 @@
+id: firefox-devtools
+name: Firefox Developer Tools
+version: 0.1.0
+description: Launch Firefox with remote debugging enabled
+targetTypes:
+  - firefox
+  - browser
+
+spawn:
+  command: firefox
+  args:
+    - --remote-debugging-port=9223
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 9223
+
+attach:
+  program: "${program.abs}"
+  webRoot: "${program.parent}"

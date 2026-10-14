@@ -1,0 +1,32 @@
+id: ddd
+name: DDD
+version: 0.1.0
+description: Data Display Debugger — GUI for GDB/DBX
+languages: []
+launchTypes:
+- ddd
+fileExtensions:
+- c
+- cpp
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-historic-launch
+  - ddd
+initialize:
+  adapterID: ddd
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

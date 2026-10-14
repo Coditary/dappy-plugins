@@ -1,0 +1,45 @@
+id: rr-replay
+name: rr (Record and Replay)
+version: 0.1.0
+description: Time-travel debugging via rr replay + lldb-dap
+languages:
+- c
+- cpp
+- rust
+- zig
+launchTypes:
+- rr
+- rr-replay
+fileExtensions:
+- c
+- cc
+- cpp
+- cxx
+- rs
+- zig
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-rr-dap
+initialize:
+  adapterID: rr-replay
+launch:
+  request: launch
+  defaults:
+    type: rr-replay
+    request: launch
+    debugger: lldb-dap
+  fields:
+    program: ${program.abs}
+    traceDir: ${env:RR_TRACE_DIR}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

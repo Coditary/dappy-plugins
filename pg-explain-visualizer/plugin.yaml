@@ -1,0 +1,31 @@
+id: pg-explain-visualizer
+name: pgAdmin EXPLAIN Visualizer
+version: 0.1.0
+description: Visual PostgreSQL query plan tree debugger
+languages: []
+launchTypes:
+- pg-explain-visualizer
+fileExtensions:
+- sql
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-domain-launch
+  - pg-explain-visualizer
+initialize:
+  adapterID: pg-explain-visualizer
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

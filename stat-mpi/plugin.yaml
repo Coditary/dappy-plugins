@@ -1,0 +1,31 @@
+id: stat-mpi
+name: STAT
+version: 0.1.0
+description: Stack trace analysis for thousands of MPI ranks
+languages: []
+launchTypes:
+- stat-mpi
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-hpc-launch
+  - stat-mpi
+initialize:
+  adapterID: stat-mpi
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

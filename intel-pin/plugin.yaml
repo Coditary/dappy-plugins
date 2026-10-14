@@ -1,0 +1,31 @@
+id: intel-pin
+name: Intel PIN
+version: 0.1.0
+description: Dynamic binary instrumentation framework
+languages: []
+launchTypes:
+- intel-pin
+fileExtensions:
+- so
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-instrumentation-launch
+  - intel-pin
+initialize:
+  adapterID: intel-pin
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

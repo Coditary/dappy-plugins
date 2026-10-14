@@ -1,0 +1,48 @@
+id: python-pdb
+name: Python (pdb)
+version: 0.1.0
+attachment: attachment.yaml
+languages:
+  - python
+launchTypes:
+  - python-pdb
+fileExtensions:
+  - py
+adapter:
+  transport: stdio
+  command: python3
+  args:
+    - -m
+    - dappy_pdb_bridge
+
+initialize:
+  adapterID: python-pdb
+
+launch:
+  request: launch
+  defaults:
+    type: python-pdb
+    request: launch
+    stopOnEntry: true
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    python: "${env:PYTHON}"
+
+init:
+  steps:
+    - request: launch
+      useLaunchArguments: true
+      waitForEvent: initialized
+    - request: setBreakpoints
+      arguments:
+        source:
+          path: "${program.abs}"
+        breakpoints:
+          - line: 1
+      recordEntry:
+        path: "${program.abs}"
+        line: 1
+    - request: configurationDone
+      arguments: {}
+    - waitForResponse: launch

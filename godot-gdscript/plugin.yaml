@@ -1,0 +1,32 @@
+id: godot-gdscript
+name: Godot GDScript Debugger
+version: 0.1.0
+description: Godot Editor live debugger for game logic
+languages: []
+launchTypes:
+- godot-gdscript
+fileExtensions:
+- gd
+- tscn
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - godot-gdscript
+initialize:
+  adapterID: godot-gdscript
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,32 @@
+id: v8-inspector
+name: V8 Inspector
+version: 0.1.0
+description: V8/Node inspect protocol debugger
+languages: []
+launchTypes:
+- v8-inspector
+fileExtensions:
+- js
+- mjs
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-launch
+  - v8-inspector
+initialize:
+  adapterID: v8-inspector
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,31 @@
+id: clojure-debugger
+name: Clojure debugger
+version: 0.1.0
+description: Interactive REPL debugger for Clojure
+languages: []
+launchTypes:
+- clojure-debugger
+fileExtensions:
+- clj
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-extra-launch
+  - clojure-debugger
+initialize:
+  adapterID: clojure-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

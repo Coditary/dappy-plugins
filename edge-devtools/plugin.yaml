@@ -1,0 +1,35 @@
+id: edge-devtools
+name: Edge DevTools (attach)
+version: 0.1.0
+description: Attach to Microsoft Edge via CDP (Chromium)
+languages:
+- javascript
+launchTypes:
+- msedge
+- edge
+fileExtensions:
+- html
+- js
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-chrome-cdp
+initialize:
+  adapterID: edge-devtools
+launch:
+  request: attach
+  defaults:
+    type: msedge
+    request: attach
+    port: 9224
+  fields:
+    program: ${program.abs}
+init:
+  steps:
+  - request: attach
+    useLaunchArguments: true
+  - request: configurationDone
+    arguments: {}

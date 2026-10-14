@@ -1,0 +1,31 @@
+id: swi-prolog-tracer
+name: SWI-Prolog Tracer
+version: 0.1.0
+description: Graphical and console Prolog tracer
+languages: []
+launchTypes:
+- swi-prolog-tracer
+fileExtensions:
+- pl
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-extra-launch
+  - swi-prolog-tracer
+initialize:
+  adapterID: swi-prolog-tracer
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

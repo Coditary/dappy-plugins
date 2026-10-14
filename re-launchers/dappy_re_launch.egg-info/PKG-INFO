@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: dappy-re-launch
+Version: 0.1.0
+Summary: RE/disassembler launchers for Dappy
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# re-launchers
+
+Shared launcher package for reverse-engineering plugins (`dappy-re-launch <tool-id>`).
+
+Install once: `pip install -e dappy-plugins/re-launchers`

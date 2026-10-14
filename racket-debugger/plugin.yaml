@@ -1,0 +1,31 @@
+id: racket-debugger
+name: Racket Debugger
+version: 0.1.0
+description: Visual syntax and execution debugger
+languages: []
+launchTypes:
+- racket-debugger
+fileExtensions:
+- rkt
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-niche-language-launch
+  - racket-debugger
+initialize:
+  adapterID: racket-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

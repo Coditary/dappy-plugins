@@ -1,0 +1,22 @@
+id: lsan
+name: LeakSanitizer
+version: 0.1.0
+description: Fast standalone memory leak detector
+targetTypes:
+  - lsan
+  - analysis
+  - sanitizer
+
+spawn:
+  command: dappy-sanitizer-run
+  args:
+    - lsan
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+

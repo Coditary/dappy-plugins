@@ -1,0 +1,31 @@
+id: dart-devtools
+name: Dart DevTools
+version: 0.1.0
+description: Dart/Flutter Observatory and DevTools debugging
+languages: []
+launchTypes:
+- dart-devtools
+fileExtensions:
+- dart
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - dart-devtools
+initialize:
+  adapterID: dart-devtools
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

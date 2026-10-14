@@ -1,0 +1,39 @@
+id: chrome-devtools
+name: Chrome DevTools (attach)
+version: 0.1.0
+description: Attach to Chrome/Chromium via Chrome DevTools Protocol (CDP)
+languages:
+- javascript
+- typescript
+launchTypes:
+- chrome
+- pwa-chrome
+fileExtensions:
+- html
+- js
+- ts
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-chrome-cdp
+initialize:
+  adapterID: chrome-devtools
+launch:
+  request: attach
+  defaults:
+    type: chrome
+    request: attach
+    port: 9222
+    webRoot: ${program.parent}
+  fields:
+    program: ${program.abs}
+    url: file://${program.abs}
+init:
+  steps:
+  - request: attach
+    useLaunchArguments: true
+  - request: configurationDone
+    arguments: {}

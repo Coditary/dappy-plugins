@@ -1,0 +1,40 @@
+# Attach-only companion manifest (install flat as dap/plugins/python-madbg-attach.yaml
+# or copy to ~/.config/dap/plugins/python-madbg-attach.yaml).
+id: python-madbg-attach
+name: Python (madbg attach)
+version: 0.1.0
+description: Attach to a running Python process or connect to an existing madbg server
+languages:
+  - python
+launchTypes:
+  - python-madbg
+  - python-madbg-attach
+fileExtensions:
+  - py
+adapter:
+  transport: stdio
+  command: python3
+  args:
+    - -m
+    - madbg_dap
+initialize:
+  adapterID: python-madbg
+launch:
+  request: attach
+  defaults:
+    type: python-madbg
+    request: attach
+    host: "127.0.0.1"
+    port: 3513
+    connectOnly: false
+  fields:
+    program: "${program.abs}"
+    pid: "${env:MADBG_PID}"
+    python: "${env:PYTHON}"
+init:
+  steps:
+    - request: attach
+      useLaunchArguments: true
+      waitForEvent: initialized
+    - request: configurationDone
+      arguments: {}

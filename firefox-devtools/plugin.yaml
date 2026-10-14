@@ -1,0 +1,35 @@
+id: firefox-devtools
+name: Firefox Debugger (attach)
+version: 0.1.0
+description: Attach to Firefox via remote debugging protocol
+languages:
+- javascript
+launchTypes:
+- firefox
+fileExtensions:
+- html
+- js
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-firefox-dap
+initialize:
+  adapterID: firefox-devtools
+launch:
+  request: attach
+  defaults:
+    type: firefox
+    request: attach
+    port: 9223
+  fields:
+    program: ${program.abs}
+    url: file://${program.abs}
+init:
+  steps:
+  - request: attach
+    useLaunchArguments: true
+  - request: configurationDone
+    arguments: {}

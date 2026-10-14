@@ -1,0 +1,32 @@
+id: rstudio-debugger
+name: RStudio Debugger
+version: 0.1.0
+description: Integrated R debugger in RStudio
+languages: []
+launchTypes:
+- rstudio-debugger
+fileExtensions:
+- r
+- R
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-launch
+  - rstudio-debugger
+initialize:
+  adapterID: rstudio-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

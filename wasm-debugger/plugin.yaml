@@ -1,0 +1,32 @@
+id: wasm-debugger
+name: Wasm Debugger
+version: 0.1.0
+description: Wasmtime CLI and Chrome DevTools Wasm support
+languages: []
+launchTypes:
+- wasm-debugger
+fileExtensions:
+- wasm
+- wat
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - wasm-debugger
+initialize:
+  adapterID: wasm-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

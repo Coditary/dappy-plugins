@@ -1,0 +1,32 @@
+id: turbo-debugger
+name: Turbo Debugger
+version: 0.1.0
+description: Borland Turbo Pascal/C era debugger
+languages: []
+launchTypes:
+- turbo-debugger
+fileExtensions:
+- exe
+- com
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-historic-launch
+  - turbo-debugger
+initialize:
+  adapterID: turbo-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

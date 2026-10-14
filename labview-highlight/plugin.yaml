@@ -1,0 +1,31 @@
+id: labview-highlight
+name: LabVIEW Highlight Execution
+version: 0.1.0
+description: Visual dataflow debugger with wire animation
+languages: []
+launchTypes:
+- labview-highlight
+fileExtensions:
+- vi
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-domain-launch
+  - labview-highlight
+initialize:
+  adapterID: labview-highlight
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

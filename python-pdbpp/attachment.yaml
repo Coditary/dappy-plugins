@@ -1,0 +1,22 @@
+version: 1
+
+throwSites:
+  - id: raise
+    label: Raised exception
+    linePatterns:
+      - '^\s*raise\b'
+  - id: breakpoint
+    label: Built-in breakpoint()
+    linePatterns:
+      - '^\s*breakpoint\s*\('
+  - id: set_trace
+    label: pdb.set_trace()
+    linePatterns:
+      - '^\s*pdb\.set_trace\s*\('
+      - '^\s*import pdb\b.*set_trace'
+  - id: post_mortem
+    label: pdb post-mortem (pm / xpm)
+    linePatterns:
+      - '^\s*pdb\.post_mortem\s*\('
+      - '^\s*pdb\.xpm\s*\('
+      - '^\s*pdb\.pm\s*\('

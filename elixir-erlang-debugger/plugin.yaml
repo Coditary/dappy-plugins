@@ -1,0 +1,32 @@
+id: elixir-erlang-debugger
+name: Elixir/Erlang debugger
+version: 0.1.0
+description: BEAM VM graphical and CLI debugger
+languages: []
+launchTypes:
+- elixir-erlang-debugger
+fileExtensions:
+- erl
+- ex
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-extra-launch
+  - elixir-erlang-debugger
+initialize:
+  adapterID: elixir-erlang-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

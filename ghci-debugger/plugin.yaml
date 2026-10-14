@@ -1,0 +1,31 @@
+id: ghci-debugger
+name: GHCi Debugger
+version: 0.1.0
+description: Interactive Haskell debugger in GHCi
+languages: []
+launchTypes:
+- ghci-debugger
+fileExtensions:
+- hs
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-extra-launch
+  - ghci-debugger
+initialize:
+  adapterID: ghci-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

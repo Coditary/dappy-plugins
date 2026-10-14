@@ -1,0 +1,33 @@
+id: renderdoc
+name: RenderDoc
+version: 0.1.0
+description: Open-source GPU debugger for Vulkan, OpenGL, DirectX
+languages: []
+launchTypes:
+- renderdoc
+fileExtensions:
+- exe
+- so
+- rdc
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-graphics-launch
+  - renderdoc
+initialize:
+  adapterID: renderdoc
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

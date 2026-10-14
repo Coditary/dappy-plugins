@@ -1,0 +1,32 @@
+id: sentry
+name: Sentry
+version: 0.1.0
+description: Error tracking, crash reporting, and stack-trace analysis
+languages: []
+launchTypes:
+- sentry
+fileExtensions:
+- log
+- json
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-observability-launch
+  - sentry
+initialize:
+  adapterID: sentry
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

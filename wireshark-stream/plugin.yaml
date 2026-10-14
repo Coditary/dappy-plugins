@@ -1,0 +1,32 @@
+id: wireshark-stream
+name: Wireshark Follow Stream
+version: 0.1.0
+description: High-level TCP/UDP stream protocol debugger
+languages: []
+launchTypes:
+- wireshark-stream
+fileExtensions:
+- pcap
+- pcapng
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-network-launch
+  - wireshark-stream
+initialize:
+  adapterID: wireshark-stream
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

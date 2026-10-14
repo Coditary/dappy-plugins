@@ -1,0 +1,23 @@
+id: edge-devtools
+name: Microsoft Edge DevTools
+version: 0.1.0
+description: Launch Edge (Chromium) with remote debugging port
+targetTypes:
+  - edge
+  - chromium
+  - browser
+
+spawn:
+  command: microsoft-edge
+  args:
+    - --remote-debugging-port=9224
+    - --user-data-dir=/tmp/dappy-edge-profile
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 9224
+
+attach:
+  program: "${program.abs}"
+  webRoot: "${program.parent}"

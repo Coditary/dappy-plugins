@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+dappy_pdbpp_dap/__init__.py
+dappy_pdbpp_dap/__main__.py
+dappy_pdbpp_dap/adapter.py
+dappy_pdbpp_dap.egg-info/PKG-INFO
+dappy_pdbpp_dap.egg-info/SOURCES.txt
+dappy_pdbpp_dap.egg-info/dependency_links.txt
+dappy_pdbpp_dap.egg-info/entry_points.txt
+dappy_pdbpp_dap.egg-info/requires.txt
+dappy_pdbpp_dap.egg-info/top_level.txt

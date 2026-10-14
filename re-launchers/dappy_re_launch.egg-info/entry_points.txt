@@ -1,0 +1,2 @@
+[console_scripts]
+dappy-re-launch = dappy_re_launch.launcher:main

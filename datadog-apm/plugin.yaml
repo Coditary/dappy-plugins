@@ -1,0 +1,31 @@
+id: datadog-apm
+name: Datadog APM / Live Debugger
+version: 0.1.0
+description: Enterprise monitoring and live code analysis
+languages: []
+launchTypes:
+- datadog-apm
+fileExtensions:
+- json
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-observability-launch
+  - datadog-apm
+initialize:
+  adapterID: datadog-apm
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

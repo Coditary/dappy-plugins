@@ -1,0 +1,31 @@
+id: api-monitor
+name: API Monitor
+version: 0.1.0
+description: Real-time Windows API call interceptor
+languages: []
+launchTypes:
+- api-monitor
+fileExtensions:
+- exe
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-instrumentation-launch
+  - api-monitor
+initialize:
+  adapterID: api-monitor
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

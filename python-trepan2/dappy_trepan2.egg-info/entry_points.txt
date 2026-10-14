@@ -1,0 +1,2 @@
+[console_scripts]
+dappy-trepan2-dap = dappy_trepan2.dap:main

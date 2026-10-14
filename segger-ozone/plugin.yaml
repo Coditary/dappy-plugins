@@ -1,0 +1,32 @@
+id: segger-ozone
+name: SEGGER Ozone
+version: 0.1.0
+description: Graphical debugger for Cortex-M embedded
+languages: []
+launchTypes:
+- segger-ozone
+fileExtensions:
+- elf
+- axf
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-embedded-launch
+  - segger-ozone
+initialize:
+  adapterID: segger-ozone
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

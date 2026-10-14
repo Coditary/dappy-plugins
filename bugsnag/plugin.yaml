@@ -1,0 +1,31 @@
+id: bugsnag
+name: Bugsnag
+version: 0.1.0
+description: Error and crash monitoring for applications
+languages: []
+launchTypes:
+- bugsnag
+fileExtensions:
+- json
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-observability-launch
+  - bugsnag
+initialize:
+  adapterID: bugsnag
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

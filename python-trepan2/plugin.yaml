@@ -1,0 +1,48 @@
+id: python-trepan2
+name: Python 2 (trepan2)
+version: 0.1.0
+description: gdb-like Python 2 debugger via trepan2 TCP server and DAP bridge
+languages:
+  - python
+launchTypes:
+  - python-trepan2
+fileExtensions:
+  - py
+adapter:
+  transport: stdio
+  command: dappy-trepan2-dap
+  args: []
+
+initialize:
+  adapterID: python-trepan2
+
+launch:
+  request: launch
+  defaults:
+    type: python-trepan2
+    request: launch
+    host: "127.0.0.1"
+    port: 0
+    stopOnEntry: false
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    python: "${env:PYTHON2}"
+
+init:
+  steps:
+    - request: launch
+      useLaunchArguments: true
+      waitForEvent: initialized
+    - request: setBreakpoints
+      arguments:
+        source:
+          path: "${program.abs}"
+        breakpoints:
+          - line: 1
+      recordEntry:
+        path: "${program.abs}"
+        line: 1
+    - request: configurationDone
+      arguments: {}
+    - waitForResponse: launch

@@ -1,0 +1,2 @@
+[console_scripts]
+pudb-dap-adapter = pudb_dap_adapter.server:main

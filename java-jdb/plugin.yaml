@@ -1,0 +1,38 @@
+id: java-jdb
+name: Java JDB
+version: 0.1.0
+description: JDK JDB command-line debugger via JDWP
+languages:
+- java
+launchTypes:
+- java
+fileExtensions:
+- java
+- class
+- jar
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-java-jdb
+initialize:
+  adapterID: java-jdb
+launch:
+  request: launch
+  defaults:
+    type: java
+    request: launch
+    stopOnEntry: true
+    jdwpPort: 5005
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+    java: ${env:JAVA_HOME}/bin/java
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+  - request: configurationDone
+    arguments: {}

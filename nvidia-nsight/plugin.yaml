@@ -1,0 +1,31 @@
+id: nvidia-nsight
+name: NVIDIA Nsight
+version: 0.1.0
+description: Nsight Graphics and Systems GPU debugger/profiler
+languages: []
+launchTypes:
+- nvidia-nsight
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-graphics-launch
+  - nvidia-nsight
+initialize:
+  adapterID: nvidia-nsight
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,33 @@
+id: binary-ninja
+name: Binary Ninja
+version: 0.1.0
+description: Modern RE and analysis platform
+languages: []
+launchTypes:
+- binary-ninja
+fileExtensions:
+- exe
+- dll
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-re-launch
+  - binary-ninja
+initialize:
+  adapterID: binary-ninja
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

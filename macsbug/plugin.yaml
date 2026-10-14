@@ -1,0 +1,31 @@
+id: macsbug
+name: MacsBug
+version: 0.1.0
+description: Legendary classic Mac OS system debugger
+languages: []
+launchTypes:
+- macsbug
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-historic-launch
+  - macsbug
+initialize:
+  adapterID: macsbug
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

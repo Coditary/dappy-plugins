@@ -1,0 +1,32 @@
+id: stm32cube-gdb
+name: STM32Cube GDB
+version: 0.1.0
+description: GNU MCU GDB for ST microcontrollers
+languages: []
+launchTypes:
+- stm32cube-gdb
+fileExtensions:
+- elf
+- axf
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-embedded-launch
+  - stm32cube-gdb
+initialize:
+  adapterID: stm32cube-gdb
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

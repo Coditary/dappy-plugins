@@ -1,0 +1,31 @@
+id: remix-debugger
+name: Remix Debugger
+version: 0.1.0
+description: Ethereum/Solidity opcode and line transaction debugger
+languages: []
+launchTypes:
+- remix-debugger
+fileExtensions:
+- sol
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-blockchain-launch
+  - remix-debugger
+initialize:
+  adapterID: remix-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

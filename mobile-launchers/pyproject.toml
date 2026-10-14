@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dappy-mobile-launch"
+version = "0.1.0"
+description = "Mobile and HTTP proxy launchers for Dappy"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[project.scripts]
+dappy-mobile-launch = "dappy_mobile_launch.launcher:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dappy_mobile_launch*"]

@@ -1,0 +1,48 @@
+id: python-trepan3k
+name: Python 3 (trepan3k)
+version: 0.1.0
+description: gdb-like Python 3 debugger via trepan3k TCP server and DAP bridge
+languages:
+  - python
+launchTypes:
+  - python-trepan3k
+fileExtensions:
+  - py
+adapter:
+  transport: stdio
+  command: dappy-trepan3k-dap
+  args: []
+
+initialize:
+  adapterID: python-trepan3k
+
+launch:
+  request: launch
+  defaults:
+    type: python-trepan3k
+    request: launch
+    host: "127.0.0.1"
+    port: 0
+    stopOnEntry: false
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    python: "${env:PYTHON3}"
+
+init:
+  steps:
+    - request: launch
+      useLaunchArguments: true
+      waitForEvent: initialized
+    - request: setBreakpoints
+      arguments:
+        source:
+          path: "${program.abs}"
+        breakpoints:
+          - line: 1
+      recordEntry:
+        path: "${program.abs}"
+        line: 1
+    - request: configurationDone
+      arguments: {}
+    - waitForResponse: launch

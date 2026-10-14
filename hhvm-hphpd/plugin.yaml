@@ -1,0 +1,32 @@
+id: hhvm-hphpd
+name: HHVM hphpd
+version: 0.1.0
+description: Command-line debugger for HipHop VM PHP/Hack
+languages: []
+launchTypes:
+- hhvm-hphpd
+fileExtensions:
+- php
+- hack
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-bytecode-launch
+  - hhvm-hphpd
+initialize:
+  adapterID: hhvm-hphpd
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

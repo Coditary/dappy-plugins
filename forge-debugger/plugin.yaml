@@ -1,0 +1,32 @@
+id: forge-debugger
+name: Forge Debugger
+version: 0.1.0
+description: Foundry line-based Solidity CLI debugger
+languages: []
+launchTypes:
+- forge-debugger
+fileExtensions:
+- sol
+- t.sol
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-blockchain-launch
+  - forge-debugger
+initialize:
+  adapterID: forge-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

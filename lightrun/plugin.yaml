@@ -1,0 +1,32 @@
+id: lightrun
+name: Lightrun
+version: 0.1.0
+description: Non-breaking live debugging for microservices and Kubernetes
+languages: []
+launchTypes:
+- lightrun
+fileExtensions:
+- jar
+- js
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-observability-launch
+  - lightrun
+initialize:
+  adapterID: lightrun
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,31 @@
+id: guile-debugger
+name: Guile Debugger
+version: 0.1.0
+description: GNU Guile REPL ,debug and ,backtrace
+languages: []
+launchTypes:
+- guile-debugger
+fileExtensions:
+- scm
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - guile-debugger
+initialize:
+  adapterID: guile-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

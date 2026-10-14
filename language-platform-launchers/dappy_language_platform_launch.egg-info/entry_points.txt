@@ -1,0 +1,2 @@
+[console_scripts]
+dappy-language-platform-launch = dappy_language_platform_launch.launcher:main

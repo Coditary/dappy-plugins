@@ -1,0 +1,31 @@
+id: pgadmin-pldbg
+name: pgAdmin / pldbgapi
+version: 0.1.0
+description: PostgreSQL function and trigger debugger
+languages: []
+launchTypes:
+- pgadmin-pldbg
+fileExtensions:
+- sql
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-database-launch
+  - pgadmin-pldbg
+initialize:
+  adapterID: pgadmin-pldbg
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,31 @@
+id: bochs-debugger
+name: Bochs debugger
+version: 0.1.0
+description: x86 emulator built-in CPU debugger
+languages: []
+launchTypes:
+- bochs-debugger
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-hardware-launch
+  - bochs-debugger
+initialize:
+  adapterID: bochs-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

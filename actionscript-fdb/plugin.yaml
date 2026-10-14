@@ -1,0 +1,31 @@
+id: actionscript-fdb
+name: Adobe fdb
+version: 0.1.0
+description: ActionScript 3 Flash command-line debugger
+languages: []
+launchTypes:
+- actionscript-fdb
+fileExtensions:
+- as
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - actionscript-fdb
+initialize:
+  adapterID: actionscript-fdb
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

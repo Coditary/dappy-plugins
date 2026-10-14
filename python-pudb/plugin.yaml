@@ -1,0 +1,45 @@
+id: python-pudb
+name: Python (PuDB TUI)
+version: 0.1.0
+attachment: attachment.yaml
+languages:
+  - python
+launchTypes:
+  - python-pudb
+fileExtensions:
+  - py
+adapter:
+  transport: stdio
+  command: python3
+  args:
+    - -m
+    - pudb_dap_adapter
+
+initialize:
+  adapterID: python-pudb
+
+launch:
+  request: launch
+  defaults:
+    type: python-pudb
+    request: launch
+    # PuDB is a full-screen TUI — internalConsole cannot render it.
+    console: externalTerminal
+    mode: launch
+    terminalTitle: PuDB
+    termSize: "120x40"
+    remoteHost: "127.0.0.1"
+    remotePort: 6899
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    python: "${env:PYTHON}"
+
+init:
+  steps:
+    - request: launch
+      useLaunchArguments: true
+      waitForEvent: initialized
+    - request: configurationDone
+      arguments: {}
+    - waitForResponse: launch

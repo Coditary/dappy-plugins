@@ -1,0 +1,32 @@
+id: kd-kdbg
+name: KD / KDBG
+version: 0.1.0
+description: ReactOS / Windows NT kernel debugger
+languages: []
+launchTypes:
+- kd-kdbg
+fileExtensions:
+- dmp
+- exe
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-kernel-launch
+  - kd-kdbg
+initialize:
+  adapterID: kd-kdbg
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

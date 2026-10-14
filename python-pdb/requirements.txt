@@ -1,0 +1,3 @@
+# Stdlib-only bridge — no runtime pip dependencies.
+# Install the package itself so `python3 -m dappy_pdb_bridge` is on PATH:
+#   pip install -e /path/to/dappy-plugins/python-pdb

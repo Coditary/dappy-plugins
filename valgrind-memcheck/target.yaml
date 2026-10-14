@@ -1,0 +1,25 @@
+id: valgrind-memcheck
+name: Valgrind Memcheck
+version: 0.1.0
+description: Run under Valgrind memcheck with vgdb for interactive GDB attach
+targetTypes:
+  - valgrind
+  - memcheck
+  - analysis
+
+spawn:
+  command: valgrind
+  args:
+    - --tool=memcheck
+    - --vgdb=yes
+    - --vgdb-error=0
+    - --vgdb-poll-on-error=1
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 2345
+
+attach:
+  program: "${program.abs}"
+  decompiler: auto

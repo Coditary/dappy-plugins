@@ -1,0 +1,31 @@
+id: postman-bruno
+name: Postman / Bruno
+version: 0.1.0
+description: HTTP/REST API mock and debug clients
+languages: []
+launchTypes:
+- postman-bruno
+fileExtensions:
+- json
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-network-launch
+  - postman-bruno
+initialize:
+  adapterID: postman-bruno
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

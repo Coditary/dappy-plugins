@@ -1,0 +1,31 @@
+id: julia-debugger
+name: Julia Debugger
+version: 0.1.0
+description: Debugger.jl and Infiltrator.jl for Julia
+languages: []
+launchTypes:
+- julia-debugger
+fileExtensions:
+- jl
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - julia-debugger
+initialize:
+  adapterID: julia-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,44 @@
+id: php-xdebug
+name: PHP (Xdebug)
+version: 0.1.0
+description: PHP debugging via Xdebug 3 DBGp / DAP bridge
+languages:
+- php
+launchTypes:
+- php
+- xdebug
+fileExtensions:
+- php
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-xdebug-dap
+initialize:
+  adapterID: xdebug
+launch:
+  request: launch
+  defaults:
+    type: php
+    request: launch
+    port: 9003
+    xdebugSettings:
+      max_children: 128
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+    php: ${env:PHP}
+init:
+  steps:
+  - request: setBreakpoints
+    arguments:
+      source:
+        path: ${program.abs}
+      breakpoints:
+      - line: 1
+  - request: launch
+    useLaunchArguments: true
+  - request: configurationDone
+    arguments: {}

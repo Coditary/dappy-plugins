@@ -1,0 +1,33 @@
+id: dotnet-coreclr
+name: .NET CoreCLR (netcoredbg)
+version: 0.1.0
+description: Native .NET debugging via Samsung netcoredbg / VS Code interpreter
+languages:
+  - csharp
+  - fsharp
+launchTypes:
+  - coreclr
+  - dotnet
+fileExtensions:
+  - cs
+  - fs
+  - dll
+  - exe
+adapter:
+  transport: stdio
+  command: netcoredbg
+  args:
+    - --interpreter=vscode
+
+initialize:
+  adapterID: coreclr
+
+launch:
+  request: launch
+  defaults:
+    type: coreclr
+    request: launch
+    stopAtEntry: false
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"

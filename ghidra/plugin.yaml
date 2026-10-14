@@ -1,0 +1,34 @@
+id: ghidra
+name: Ghidra
+version: 0.1.0
+description: NSA open-source SRE framework and debugger
+languages: []
+launchTypes:
+- ghidra
+fileExtensions:
+- exe
+- dll
+- bin
+- elf
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-re-launch
+  - ghidra
+initialize:
+  adapterID: ghidra
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

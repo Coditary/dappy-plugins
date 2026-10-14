@@ -1,0 +1,22 @@
+id: ubsan
+name: UndefinedBehaviorSanitizer
+version: 0.1.0
+description: Undefined behavior detection (UBSan)
+targetTypes:
+  - ubsan
+  - analysis
+  - sanitizer
+
+spawn:
+  command: dappy-sanitizer-run
+  args:
+    - ubsan
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+

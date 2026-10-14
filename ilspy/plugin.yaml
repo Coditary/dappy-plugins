@@ -1,0 +1,32 @@
+id: ilspy
+name: ILSpy
+version: 0.1.0
+description: .NET decompiler with limited debugging (Windows)
+languages:
+- csharp
+launchTypes:
+- ilspy
+fileExtensions:
+- dll
+- exe
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-ilspy-launch
+initialize:
+  adapterID: ilspy
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    ilspy: ${env:ILSPY}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

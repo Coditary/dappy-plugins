@@ -1,0 +1,31 @@
+id: autohotkey-debugger
+name: AutoHotkey Debugger
+version: 0.1.0
+description: SciTE4AutoHotkey interactive breakpoint debugger
+languages: []
+launchTypes:
+- autohotkey-debugger
+fileExtensions:
+- ahk
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - autohotkey-debugger
+initialize:
+  adapterID: autohotkey-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

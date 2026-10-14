@@ -1,0 +1,23 @@
+id: chrome-devtools
+name: Chrome DevTools (CDP)
+version: 0.1.0
+description: Launch Chromium/Chrome with remote debugging port for DevTools attach
+targetTypes:
+  - chrome
+  - cdp
+  - browser
+
+spawn:
+  command: google-chrome
+  args:
+    - --remote-debugging-port=9222
+    - --user-data-dir=/tmp/dappy-chrome-profile
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 9222
+
+attach:
+  program: "${program.abs}"
+  webRoot: "${program.parent}"

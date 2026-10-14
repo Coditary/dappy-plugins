@@ -1,0 +1,31 @@
+id: kdb-linux
+name: Linux KDB
+version: 0.1.0
+description: In-kernel text debugger on panic or serial
+languages: []
+launchTypes:
+- kdb-linux
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-kernel-launch
+  - kdb-linux
+initialize:
+  adapterID: kdb-linux
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,47 @@
+id: windbg-cdb
+name: WinDbg / CDB
+version: 0.1.0
+description: Microsoft WinDbg/CDB for Windows C/C++ crash dumps and low-level debugging
+languages:
+- c
+- cpp
+launchTypes:
+- windbg
+- cdb
+- cppvsdbg
+fileExtensions:
+- exe
+- dll
+- c
+- cpp
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-windbg-dap
+initialize:
+  adapterID: windbg-cdb
+launch:
+  request: launch
+  defaults:
+    type: windbg-cdb
+    request: launch
+    stopOnEntry: false
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+    dump: ${env:WINDBG_DUMP}
+init:
+  steps:
+  - request: setBreakpoints
+    arguments:
+      source:
+        path: ${program.abs}
+      breakpoints:
+      - line: 1
+  - request: launch
+    useLaunchArguments: true
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,23 @@
+id: jlink-gdbserver
+name: J-Link GDB Server
+version: 0.1.0
+description: SEGGER probe GDB bridge
+targetTypes:
+  - jlink-gdbserver
+  - embedded
+  - gdb-remote
+
+spawn:
+  command: dappy-embedded-launch
+  args:
+    - jlink-gdbserver
+
+connect:
+  host: 127.0.0.1
+  port: 2331
+
+attach:
+  program: "${program.abs}"
+  imageBase: "0x08000000"
+  decompiler: auto
+

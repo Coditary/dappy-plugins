@@ -1,0 +1,31 @@
+id: intel-gpa
+name: Intel GPA
+version: 0.1.0
+description: Intel Graphics Performance Analyzers
+languages: []
+launchTypes:
+- intel-gpa
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-graphics-launch
+  - intel-gpa
+initialize:
+  adapterID: intel-gpa
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

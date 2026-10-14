@@ -1,0 +1,31 @@
+id: saleae-logic
+name: Saleae Logic
+version: 0.1.0
+description: Logic analyzer software for SPI, I2C, UART
+languages: []
+launchTypes:
+- saleae-logic
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-hardware-launch
+  - saleae-logic
+initialize:
+  adapterID: saleae-logic
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,32 @@
+id: juce-plugin-host
+name: JUCE Plugin Host
+version: 0.1.0
+description: VST/AU plugin test host for DSP debugging
+languages: []
+launchTypes:
+- juce-plugin-host
+fileExtensions:
+- vst3
+- so
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-audio-launch
+  - juce-plugin-host
+initialize:
+  adapterID: juce-plugin-host
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

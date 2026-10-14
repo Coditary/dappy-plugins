@@ -1,0 +1,31 @@
+id: toad-debugger
+name: TOAD Debugger
+version: 0.1.0
+description: Commercial database debugging and code analysis
+languages: []
+launchTypes:
+- toad-debugger
+fileExtensions:
+- sql
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-database-launch
+  - toad-debugger
+initialize:
+  adapterID: toad-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

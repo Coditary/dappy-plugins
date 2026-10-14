@@ -1,0 +1,31 @@
+id: pg-explain
+name: pg_stat_statements / EXPLAIN
+version: 0.1.0
+description: PostgreSQL query plan debugger
+languages: []
+launchTypes:
+- pg-explain
+fileExtensions:
+- sql
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-data-protocol-launch
+  - pg-explain
+initialize:
+  adapterID: pg-explain
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

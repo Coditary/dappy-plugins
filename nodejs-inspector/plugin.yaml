@@ -1,0 +1,47 @@
+id: nodejs-inspector
+name: Node.js Inspector
+version: 0.1.0
+description: Node.js V8 inspector via js-debug DAP launcher
+languages:
+- javascript
+- typescript
+launchTypes:
+- node
+- pwa-node
+fileExtensions:
+- js
+- mjs
+- cjs
+- ts
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-node-dap
+initialize:
+  adapterID: nodejs-inspector
+launch:
+  request: launch
+  defaults:
+    type: node
+    request: launch
+    stopOnEntry: false
+    console: integratedTerminal
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+    runtimeExecutable: ${env:NODE}
+init:
+  steps:
+  - request: setBreakpoints
+    arguments:
+      source:
+        path: ${program.abs}
+      breakpoints:
+      - line: 1
+  - request: launch
+    useLaunchArguments: true
+  - request: configurationDone
+    arguments: {}

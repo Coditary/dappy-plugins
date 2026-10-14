@@ -1,0 +1,13 @@
+version: 1
+
+throwSites:
+  - id: breakpoint
+    label: breakpoint()
+    linePatterns:
+      - '^\s*breakpoint\s*\('
+      - '^\s*pdb\.set_trace\s*\('
+      - '^\s*import\s+pdb\b'
+  - id: raise
+    label: Raised exception
+    linePatterns:
+      - '^\s*raise\b'

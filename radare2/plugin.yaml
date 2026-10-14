@@ -1,0 +1,33 @@
+id: radare2
+name: Radare2
+version: 0.1.0
+description: CLI reverse-engineering and debugging framework
+languages: []
+launchTypes:
+- radare2
+fileExtensions:
+- exe
+- bin
+- elf
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-re-launch
+  - radare2
+initialize:
+  adapterID: radare2
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

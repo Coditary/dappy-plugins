@@ -1,0 +1,31 @@
+id: libvmi
+name: LibVMI
+version: 0.1.0
+description: Virtual machine introspection without guest agents
+languages: []
+launchTypes:
+- libvmi
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-kernel-launch
+  - libvmi
+initialize:
+  adapterID: libvmi
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,31 @@
+id: arm-ddt
+name: ARM DDT
+version: 0.1.0
+description: MPI/OpenMP parallel debugger for supercomputers
+languages: []
+launchTypes:
+- arm-ddt
+fileExtensions:
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-hpc-launch
+  - arm-ddt
+initialize:
+  adapterID: arm-ddt
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,22 @@
+id: duma
+name: Duma
+version: 0.1.0
+description: Electric Fence successor buffer overrun detector
+targetTypes:
+  - duma
+  - analysis
+  - sanitizer
+
+spawn:
+  command: dappy-sanitizer-run
+  args:
+    - duma
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+

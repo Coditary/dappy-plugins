@@ -1,0 +1,31 @@
+id: frida
+name: Frida
+version: 0.1.0
+description: Dynamic instrumentation for native and mobile apps
+languages: []
+launchTypes:
+- frida
+fileExtensions:
+- js
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-instrumentation-launch
+  - frida
+initialize:
+  adapterID: frida
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

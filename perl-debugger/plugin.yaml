@@ -1,0 +1,32 @@
+id: perl-debugger
+name: Perl Debugger
+version: 0.1.0
+description: Built-in interactive perl -d debugger
+languages: []
+launchTypes:
+- perl-debugger
+fileExtensions:
+- pl
+- pm
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-launch
+  - perl-debugger
+initialize:
+  adapterID: perl-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

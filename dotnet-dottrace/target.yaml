@@ -1,0 +1,23 @@
+id: dotnet-dottrace
+name: JetBrains dotTrace
+version: 0.1.0
+description: .NET performance profiler (analysis, not breakpoint debugging)
+targetTypes:
+  - dottrace
+  - profiling
+  - analysis
+
+spawn:
+  command: dottrace
+  args:
+    - snapshot
+    - --save-to=trace.dtps
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+  snapshot: trace.dtps

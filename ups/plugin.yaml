@@ -1,0 +1,32 @@
+id: ups
+name: Ups
+version: 0.1.0
+description: Classic C/Fortran source debugger for UNIX
+languages: []
+launchTypes:
+- ups
+fileExtensions:
+- c
+- f
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-historic-launch
+  - ups
+initialize:
+  adapterID: ups
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

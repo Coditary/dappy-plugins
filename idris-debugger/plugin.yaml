@@ -1,0 +1,31 @@
+id: idris-debugger
+name: Idris debugger
+version: 0.1.0
+description: Stepwise evaluation for dependently typed code
+languages: []
+launchTypes:
+- idris-debugger
+fileExtensions:
+- idr
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-niche-language-launch
+  - idris-debugger
+initialize:
+  adapterID: idris-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

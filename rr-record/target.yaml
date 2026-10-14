@@ -1,0 +1,21 @@
+id: rr-record
+name: rr record
+version: 0.1.0
+description: Record an execution trace with Mozilla rr for later replay debugging
+targetTypes:
+  - rr
+  - record
+
+spawn:
+  command: rr
+  args:
+    - record
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+  traceDir: "${program.abs}.rr"

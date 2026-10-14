@@ -1,0 +1,32 @@
+id: qemu-gdb-stub
+name: QEMU GDB stub
+version: 0.1.0
+description: QEMU monitor and gdb-remote stub debugging
+languages: []
+launchTypes:
+- qemu-gdb-stub
+fileExtensions:
+- elf
+- bin
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-hardware-launch
+  - qemu-gdb-stub
+initialize:
+  adapterID: qemu-gdb-stub
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

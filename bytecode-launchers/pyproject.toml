@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dappy-bytecode-launch"
+version = "0.1.0"
+description = "VM, bytecode, and interpreter debugger launchers for Dappy"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[project.scripts]
+dappy-bytecode-launch = "dappy_bytecode_launch.launcher:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dappy_bytecode_launch*"]

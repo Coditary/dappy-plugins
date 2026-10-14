@@ -1,0 +1,22 @@
+id: aqtime-pro
+name: AQTime Pro
+version: 0.1.0
+description: Performance and memory profiler C++/ .NET
+targetTypes:
+  - aqtime-pro
+  - analysis
+  - sanitizer
+
+spawn:
+  command: dappy-sanitizer-run
+  args:
+    - aqtime-pro
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+

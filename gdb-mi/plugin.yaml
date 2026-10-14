@@ -1,0 +1,52 @@
+id: gdb-mi
+name: GDB/MI
+version: 0.1.0
+description: GDB Machine Interface DAP bridge for IDEs
+languages: []
+launchTypes:
+  - gdb-mi
+  - gdb-mi
+fileExtensions:
+  - c
+  - cpp
+  - o
+  - out
+adapter:
+  transport: stdio
+  command: python3
+  args:
+    - -m
+    - dappy_gdb_dap
+
+initialize:
+  adapterID: gdb-mi
+  defaults:
+    supportsConfigurationDoneRequest: true
+
+launch:
+  request: launch
+  defaults:
+    type: gdb-mi
+    request: launch
+    stopOnEntry: true
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    gdb: "${env:GDB}"
+
+init:
+  steps:
+    - request: setBreakpoints
+      arguments:
+        source:
+          path: "${program.abs}"
+        breakpoints:
+          - line: 1
+      recordEntry:
+        path: "${program.abs}"
+        line: 1
+    - request: launch
+      useLaunchArguments: true
+    - request: configurationDone
+      arguments: {}
+

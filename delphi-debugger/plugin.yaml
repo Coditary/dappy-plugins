@@ -1,0 +1,32 @@
+id: delphi-debugger
+name: Delphi Debugger
+version: 0.1.0
+description: Embarcadero RAD Studio Object Pascal debugger
+languages: []
+launchTypes:
+- delphi-debugger
+fileExtensions:
+- pas
+- dpr
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - delphi-debugger
+initialize:
+  adapterID: delphi-debugger
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

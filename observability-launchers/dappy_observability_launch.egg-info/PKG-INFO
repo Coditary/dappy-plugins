@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: dappy-observability-launch
+Version: 0.1.0
+Summary: Cloud observability and non-breaking live-debug launchers for Dappy
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# observability-launchers
+
+Shared launcher for cloud APM, error-tracking, and non-breaking live-debug plugins.
+
+```bash
+pip install -e dappy-plugins/observability-launchers
+dappy-observability-launch sentry
+```
+
+Plugins set `DAPPY_PROGRAM` and service-specific env vars (see each plugin README).

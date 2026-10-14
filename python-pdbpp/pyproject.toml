@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dappy-pdbpp-dap"
+version = "0.1.0"
+description = "Minimal DAP bridge for pdb++ (pdbpp) used by Dappy"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "pdbpp>=0.10.3",
+]
+
+[project.scripts]
+dappy-pdbpp-dap = "dappy_pdbpp_dap.adapter:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dappy_pdbpp_dap*"]

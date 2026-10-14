@@ -1,0 +1,30 @@
+id: go-delve
+name: Go (Delve)
+version: 0.1.0
+description: Go debugger via Delve DAP (dlv dap)
+languages:
+  - go
+launchTypes:
+  - go
+  - delve
+fileExtensions:
+  - go
+adapter:
+  transport: stdio
+  command: dlv
+  args:
+    - dap
+
+initialize:
+  adapterID: delve
+
+launch:
+  request: launch
+  defaults:
+    type: delve
+    request: launch
+    mode: exec
+    stopOnEntry: false
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"

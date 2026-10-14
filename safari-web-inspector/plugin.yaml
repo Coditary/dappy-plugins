@@ -1,0 +1,35 @@
+id: safari-web-inspector
+name: Safari Web Inspector
+version: 0.1.0
+description: WebKit Web Inspector for macOS/iOS (Safari)
+languages:
+- javascript
+launchTypes:
+- safari
+fileExtensions:
+- html
+- js
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-safari-dap
+initialize:
+  adapterID: safari-web-inspector
+launch:
+  request: attach
+  defaults:
+    type: safari
+    request: attach
+  fields:
+    program: ${program.abs}
+    url: file://${program.abs}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

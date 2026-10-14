@@ -1,0 +1,22 @@
+id: tsan
+name: ThreadSanitizer
+version: 0.1.0
+description: Data-race detection (TSan)
+targetTypes:
+  - tsan
+  - analysis
+  - sanitizer
+
+spawn:
+  command: dappy-sanitizer-run
+  args:
+    - tsan
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+

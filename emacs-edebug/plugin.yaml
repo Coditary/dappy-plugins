@@ -1,0 +1,31 @@
+id: emacs-edebug
+name: Emacs Edebug
+version: 0.1.0
+description: Symbolic Elisp source debugger
+languages: []
+launchTypes:
+- emacs-edebug
+fileExtensions:
+- el
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-extra-launch
+  - emacs-edebug
+initialize:
+  adapterID: emacs-edebug
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

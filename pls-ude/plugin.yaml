@@ -1,0 +1,31 @@
+id: pls-ude
+name: PLS UDE
+version: 0.1.0
+description: Multicore automotive ECU debugger
+languages: []
+launchTypes:
+- pls-ude
+fileExtensions:
+- elf
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-embedded-launch
+  - pls-ude
+initialize:
+  adapterID: pls-ude
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

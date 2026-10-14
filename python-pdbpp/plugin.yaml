@@ -1,0 +1,52 @@
+id: python-pdbpp
+name: Python (pdb++)
+version: 0.1.0
+attachment: attachment.yaml
+languages:
+  - python
+launchTypes:
+  - python-pdbpp
+fileExtensions:
+  - py
+adapter:
+  transport: stdio
+  command: python3
+  args:
+    - -m
+    - dappy_pdbpp_dap
+
+initialize:
+  adapterID: python-pdbpp
+  defaults:
+    supportsConfigurationDoneRequest: true
+
+launch:
+  request: launch
+  defaults:
+    type: python-pdbpp
+    request: launch
+    stopOnEntry: true
+    postMortem: true
+    sticky: false
+    interactive: false
+    console: internalConsole
+  fields:
+    program: "${program.abs}"
+    cwd: "${program.parent}"
+    python: "${env:PYTHON}"
+
+init:
+  steps:
+    - request: setBreakpoints
+      arguments:
+        source:
+          path: "${program.abs}"
+        breakpoints:
+          - line: 1
+      recordEntry:
+        path: "${program.abs}"
+        line: 1
+    - request: launch
+      useLaunchArguments: true
+    - request: configurationDone
+      arguments: {}

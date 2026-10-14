@@ -1,0 +1,2 @@
+[console_scripts]
+dappy-launcher-dap = dappy_launcher_dap.adapter:main

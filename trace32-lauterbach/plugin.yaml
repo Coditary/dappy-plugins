@@ -1,0 +1,31 @@
+id: trace32-lauterbach
+name: TRACE32 Lauterbach
+version: 0.1.0
+description: High-end in-circuit automotive debugger
+languages: []
+launchTypes:
+- trace32-lauterbach
+fileExtensions:
+- elf
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-embedded-launch
+  - trace32-lauterbach
+initialize:
+  adapterID: trace32-lauterbach
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

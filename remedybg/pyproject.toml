@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dappy-remedybg"
+version = "0.1.0"
+description = "RemedyBG launcher for Dappy (Windows)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[project.scripts]
+dappy-remedybg-launch = "dappy_remedybg.launcher:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["dappy_remedybg*"]

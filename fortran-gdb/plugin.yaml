@@ -1,0 +1,32 @@
+id: fortran-gdb
+name: Fortran GDB
+version: 0.1.0
+description: gfortran line debugging via GNU GDB
+languages: []
+launchTypes:
+- fortran-gdb
+fileExtensions:
+- f90
+- f
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-language-platform-launch
+  - fortran-gdb
+initialize:
+  adapterID: fortran-gdb
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

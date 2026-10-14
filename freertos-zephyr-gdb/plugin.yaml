@@ -1,0 +1,31 @@
+id: freertos-zephyr-gdb
+name: FreeRTOS / Zephyr GDB
+version: 0.1.0
+description: RTOS-aware JTAG/OpenOCD GDB debugging
+languages: []
+launchTypes:
+- freertos-zephyr-gdb
+fileExtensions:
+- elf
+adapter:
+  transport: stdio
+  command: python3
+  args:
+  - -m
+  - dappy_launcher_dap
+  - dappy-microkernel-launch
+  - freertos-zephyr-gdb
+initialize:
+  adapterID: freertos-zephyr-gdb
+launch:
+  request: launch
+  fields:
+    program: ${program.abs}
+    cwd: ${program.parent}
+init:
+  steps:
+  - request: launch
+    useLaunchArguments: true
+    waitForEvent: initialized
+  - request: configurationDone
+    arguments: {}

@@ -1,0 +1,22 @@
+id: msan
+name: MemorySanitizer
+version: 0.1.0
+description: Detects use of uninitialized memory in C/C++
+targetTypes:
+  - msan
+  - analysis
+  - sanitizer
+
+spawn:
+  command: dappy-sanitizer-run
+  args:
+    - msan
+    - "${program.abs}"
+
+connect:
+  host: 127.0.0.1
+  port: 0
+
+attach:
+  program: "${program.abs}"
+
